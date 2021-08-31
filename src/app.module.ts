@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { enviroments } from './enviroments';
 import config from './config';
 import { DatabaseModule } from './database/database.module';
+import { ItemModule } from './item/item.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { DatabaseModule } from './database/database.module';
       }),
     }),
     DatabaseModule,
+    ItemModule,
   ],
   controllers: [AppController],
   providers: [AppService],
