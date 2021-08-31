@@ -5,6 +5,7 @@ import * as Joi from 'joi';
 import { ConfigModule } from '@nestjs/config';
 import { enviroments } from './enviroments';
 import config from './config';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import config from './config';
         POSTGRES_USER: Joi.string().required(),
       }),
     }),
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
