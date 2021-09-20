@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { EmailUserDto } from './dto/email-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -15,7 +16,10 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     const newUser = this.userRepository.create(createUserDto);
-    return await this.userRepository.save(newUser);
+    const hashPassword = await bcrypt.hash(newUser.password, 10);
+    newUser.password = hashPassword;
+    const { email, id } = await this.userRepository.save(newUser);
+    return { email, id };
   }
 
   async findAll() {
@@ -26,8 +30,7 @@ export class UsersService {
     return await this.userRepository.findOne(id);
   }
 
-  async findByEmail(emailUserDto: EmailUserDto) {
-    const email = emailUserDto.email;
+  async findByEmail(email: string) {
     return await this.userRepository.findOne({ where: { email } });
   }
 

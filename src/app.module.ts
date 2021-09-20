@@ -26,7 +26,7 @@ import { UsersModule } from './users/users.module';
     }),
     DatabaseModule,
     ItemModule,
-    // AuthModule,
+    AuthModule,
     UsersModule,
   ],
   controllers: [AppController],
